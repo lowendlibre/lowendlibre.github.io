@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>postmarketOS on lowendlibre Blog</title>
+    <title>postmarketOS on Terminal</title>
     <link>http://lowendlibre.github.io/tags/postmarketos/</link>
-    <description>Recent content in postmarketOS on lowendlibre Blog</description>
+    <description>Recent content in postmarketOS on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Aug 2023 21:08:21 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/tags/postmarketos/index.xml" rel="self" type="application/rss+xml" />
