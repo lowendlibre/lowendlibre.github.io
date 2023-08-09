@@ -13,8 +13,10 @@
       <pubDate>Tue, 08 Aug 2023 21:08:21 -0400</pubDate>
       
       <guid>http://lowendlibre.github.io/posts/hello-world/</guid>
-      <description>Welcome to the lowendlibre blog!</description>
-      <content>&lt;p&gt;Welcome to the lowendlibre blog!&lt;/p&gt;
+      <description>Welcome to the lowendlibre blog! Here we post about our efforts porting mobile Linux distros to a variety of low-end (generally) MediaTek based devices. We mostly focus on postmarketOS for the main porting effort, but we plan to support Mobian and maybe a few other distros. ;) If this interests you, then welcome! Strap in and get ready for a bumpy ride because&amp;hellip;
+HERE BE DRAGONS </description>
+      <content>&lt;p&gt;Welcome to the lowendlibre blog! Here we post about our efforts porting mobile Linux distros to a variety of low-end (generally) MediaTek based devices. We mostly focus on postmarketOS for the main porting effort, but we plan to support Mobian and maybe a few other distros. ;) If this interests you, then welcome! Strap in and get ready for a bumpy ride because&amp;hellip;&lt;/p&gt;
+&lt;h5 id=&#34;here-be-dragons&#34;&gt;&lt;strong&gt;HERE BE DRAGONS&lt;/strong&gt;&lt;/h5&gt;
 </content>
     </item>
     
