@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Terminal</title>
-    <link>http://lowendlibre.github.io/</link>
-    <description>Recent content on Terminal</description>
+    <title>downstream on Terminal</title>
+    <link>http://lowendlibre.github.io/tags/downstream/</link>
+    <description>Recent content in downstream on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Aug 2023 20:27:55 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Aug 2023 20:27:55 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/tags/downstream/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>From Zero to Kernel</title>
       <link>http://lowendlibre.github.io/posts/from-zero-to-kernel/</link>
@@ -39,39 +39,6 @@ Introduction I have been interested in postmarketOS for a long time, have been d
 &lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
 &lt;p&gt;This is not the type of posts I have planned for this blog. I am going to be doing more technical posts soon enough, but I thought it best if I started with a full run-down of the process I have gone through. 90 hours of my life spent porting this device, and I am excited for the next 90.&lt;/p&gt;
 &lt;p&gt;Thanks for reading! Tschüss!&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <link>http://lowendlibre.github.io/posts/hello-world/</link>
-      <pubDate>Tue, 08 Aug 2023 21:08:21 -0400</pubDate>
-      
-      <guid>http://lowendlibre.github.io/posts/hello-world/</guid>
-      <description>Welcome to the lowendlibre blog! Here we post about our efforts porting mobile Linux distros to a variety of low-end (generally) MediaTek based devices. We mostly focus on postmarketOS for the main porting effort, but we plan to support Mobian and maybe a few other distros. ;) If this interests you, then welcome! Strap in and get ready for a bumpy ride because&amp;hellip;
-HERE BE DRAGONS </description>
-      <content>&lt;p&gt;Welcome to the lowendlibre blog! Here we post about our efforts porting mobile Linux distros to a variety of low-end (generally) MediaTek based devices. We mostly focus on postmarketOS for the main porting effort, but we plan to support Mobian and maybe a few other distros. ;) If this interests you, then welcome! Strap in and get ready for a bumpy ride because&amp;hellip;&lt;/p&gt;
-&lt;h5 id=&#34;here-be-dragons&#34;&gt;&lt;strong&gt;HERE BE DRAGONS&lt;/strong&gt;&lt;/h5&gt;
-</content>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://lowendlibre.github.io/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://lowendlibre.github.io/about/</guid>
-      <description>About _ _ _ _ __ __ _ _ | | | | | | | \ \ / / | | | | | |__| | ___| | | ___ \ \ /\ / /__ _ __| | __| | | __ |/ _ \ | |/ _ \ \ \/ \/ / _ \| &amp;#39;__| |/ _` | | | | | __/ | | (_) | \ /\ / (_) | | | | (_| | |_| |_|\___|_|_|\___/ \/ \/ \___/|_| |_|\__,_| Hi!</description>
-      <content>&lt;h1 id=&#34;about&#34;&gt;About&lt;/h1&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  _    _      _ _        __          __        _     _ 
- | |  | |    | | |       \ \        / /       | |   | |
- | |__| | ___| | | ___    \ \  /\  / /__  _ __| | __| |
- |  __  |/ _ \ | |/ _ \    \ \/  \/ / _ \| &amp;#39;__| |/ _` |
- | |  | |  __/ | | (_) |    \  /\  / (_) | |  | | (_| |
- |_|  |_|\___|_|_|\___/      \/  \/ \___/|_|  |_|\__,_|
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Hi! Thanks for checking out the lowendlibre project.&lt;/p&gt;
-&lt;h3 id=&#34;who-are-we&#34;&gt;Who are we?&lt;/h3&gt;
-&lt;p&gt;This project is headed by &lt;a href=&#34;https://mstdn.social/@justsoup&#34;&gt;justsoup&lt;/a&gt; and &lt;a href=&#34;https://mstdn.social/@hexaheximal@mastodon.social&#34;&gt;hexaheximal&lt;/a&gt;. Our main goal is to bring the mobile Linux ecosystem to low-end and generally MediaTek based devices. lowendlibre was founded on July 10, 2023 when our two separate projects merged with the same goal in mind. Linux.&lt;/p&gt;
 </content>
     </item>
     

@@ -6,7 +6,42 @@
     <description>Recent content in postmarketOS on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Aug 2023 21:08:21 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/tags/postmarketos/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Aug 2023 20:27:55 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/tags/postmarketos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From Zero to Kernel</title>
+      <link>http://lowendlibre.github.io/posts/from-zero-to-kernel/</link>
+      <pubDate>Wed, 09 Aug 2023 20:27:55 -0400</pubDate>
+      
+      <guid>http://lowendlibre.github.io/posts/from-zero-to-kernel/</guid>
+      <description>From Zero to Kernel Hi! This is going to be the first real post of the lowendlibre blog, so just bear with me if anything is weird. My name is JustSoup321, the maintainer of the TCL A3 (tcl-bangkok_tf), and-
+Alright. I know you just want to hear about postmarketOS, let&amp;rsquo;s get to the good stuff.
+Introduction I have been interested in postmarketOS for a long time, have been daily driving it on my Oneplus 6T for about half a year now.</description>
+      <content>&lt;h1 id=&#34;from-zero-to-kernel&#34;&gt;From Zero to Kernel&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;http://lowendlibre.github.io/posts/images/bangkok.jpg&#34; alt=&#34;TCL A3 Booting pmOS&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Hi! This is going to be the first real post of the lowendlibre blog, so just bear with me if anything is weird. My name is JustSoup321, the maintainer of the &lt;a href=&#34;https://wiki.postmarketos.org/wiki/TCL_A3_(tcl-bangkok_tf)&#34;&gt;TCL A3 (tcl-bangkok_tf)&lt;/a&gt;, and-&lt;/p&gt;
+&lt;p&gt;Alright. I know you just want to hear about postmarketOS, let&amp;rsquo;s get to the good stuff.&lt;/p&gt;
+&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;I have been interested in postmarketOS for a long time, have been daily driving it on my Oneplus 6T for about half a year now. Safe to say, I love it. Thus, I was interested in getting it working on one of my devices. I chose a tablet I had with an unlockable bootloader. Safe to say, the stock bootloader was so glitchy it overwrote the boot partition and broke it. Although, through that endeavor, I found MTKClient. MTKClient is a really nice tool that allows the user to manipulate MediaTek SOCs to gain access to their partitions and some other nice boot parameters. As such, I was able to unlock my only other MediaTek device that originally had a non-unlockable bootloader, the TCL A3.&lt;/p&gt;
+&lt;h3 id=&#34;counting-kernels&#34;&gt;Counting Kernels&lt;/h3&gt;
+&lt;p&gt;Now, that is amazing, but an unlocked bootloader does not equal a postmarketOS port. No, that was only the beginning. Next I had to find the kernel source in the first place. So I searched and eventually found the &lt;a href=&#34;https://github.com/MediaTek-Labs/common-kernel-4.19&#34;&gt;MediaTek Common Kernel&lt;/a&gt;, which seemed to support my SOC. Of course, this didn&amp;rsquo;t work, so I thought all was lost. Turns out, TCL release their kernels on &lt;a href=&#34;https://sourceforge.net/projects/tcl-mobile/files/&#34;&gt;SourceForge&lt;/a&gt;, so I was actually able to find a kernel for my device.&lt;/p&gt;
+&lt;p&gt;With the kernel, I could actually begin the porting process. Here is where I met another issue. The kernel doesn&amp;rsquo;t compile. It seems TCL must have either used some kind of proprietary compiler (which, I know, is against GPL don&amp;rsquo;t yell at me) or had some weird glue code. This was very bad. Without a compiling kernel, it was as good as no kernel at all. Thus, I had to put on my best kernel dev hat (they aren&amp;rsquo;t that expensive actually) and get to work.&lt;/p&gt;
+&lt;h3 id=&#34;mo-kernel-mo-problems&#34;&gt;Mo&amp;rsquo; Kernel Mo&amp;rsquo; Problems&lt;/h3&gt;
+&lt;p&gt;Bad news. I don&amp;rsquo;t know C.&lt;/p&gt;
+&lt;p&gt;I had to use my knowledge of Rust and guesswork to be able to understand what each function does and what is wrong with it. You may ask: &amp;ldquo;why didn&amp;rsquo;t you just mainline if the downstream kernel is broken?&amp;rdquo; Well, little Jimmy (give anyone reading named Jimmy a jumpscare), I couldn&amp;rsquo;t. See, MediaTek mt6762, which the TCL A3 uses, has zero, and I mean ZERO mainline support. There is very basic support for the mt6765, which mt6762 is compatible with, but that isn&amp;rsquo;t enough to get a booting system, let alone find a compatible device tree. No, I had to fix the kernel.&lt;/p&gt;
+&lt;p&gt;And fix it I did! I was actually able to get the kernel compiling after about 30 hours of work. (I was left with a lot of patches in my kernel folder.) So all I had to do was select the correct DTS, flash, and watch the device bootloop&amp;hellip;&lt;/p&gt;
+&lt;h3 id=&#34;the-dtb&#34;&gt;The DTB&amp;hellip;&lt;/h3&gt;
+&lt;p&gt;That was odd to me. Why using the stock Android kernel with a DTS that is literally named after the device does the device not boot? I checked through kernel configs and I swear I reread every single postmarketOS wiki page 5 times, yet no luck. It wasn&amp;rsquo;t until in the porting Matrix room somebody pointed me to using &lt;code&gt;tar tvf&lt;/code&gt; on the Alpine kernel package (which uses .apk and has nothing to do with Android&amp;rsquo;s .apk; are you confused yet?). After doing that, it turns out the kernel was hard-coded to compile with the wrong DTBs.&lt;/p&gt;
+&lt;p&gt;Why that is and who at TCL decided upon that? We will never know. What we do know is that the device will not boot with a DTB that only has 7 lines in it and is a placeholder. Thus, I needed to figure out how to get the correct DTS to be compiled. I tried editing makefiles, I tried editing kernel options, I even tried using Clang as a compiler. I did have a little success creating a bootimg with the precompiled Android kernel and Android DTB, but nothing worked except the USB being able to say it&amp;rsquo;s serial number is postmarketOS. But still, nothing worked. Nothing. Then I had an idea.&lt;/p&gt;
+&lt;p&gt;What if I just deleted the offending DTS and renamed the DTS I need compiled to the previously deleted DTS? It was definitely a dirty hack, but it actually worked! The device booted, the postmarketOS splash screen showed up, it found the rootfs, and XFCE4 booted for a moment and then crashed!&lt;/p&gt;
+&lt;h3 id=&#34;if-you-are-lucky-your-screen-may-give-some-clues-that-you-are-booted-into-pmos&#34;&gt;&amp;ldquo;If you are lucky, your screen may give some clues that you are booted into pmOS.&amp;rdquo;&lt;/h3&gt;
+&lt;p&gt;That was to be expected though. Android doesn&amp;rsquo;t use xorg, so it is no surprise that the device isn&amp;rsquo;t very well optimized for it yet. I had to do that manually. So I plugged in my usb cord and fired up ssh and&amp;hellip; it hung. There was no output and I can put no input. I was able to use the password, and ssh did connect to the device, but somewhere along the way the device starts ignoring the usb requests and leaves ssh, both figuratively and literally, hanging. Thus, I couldn&amp;rsquo;t debug at all, and no matter what I tried, I still couldn&amp;rsquo;t get ssh nor telnet (which is just another protocol to get a shell if you don&amp;rsquo;t know what it is) to work. It seems the downstream kernel has a broken usb stack. It barely even works under Android.&lt;/p&gt;
+&lt;p&gt;Thus, we are now at current day, with my only choice to be mainlining.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;This is not the type of posts I have planned for this blog. I am going to be doing more technical posts soon enough, but I thought it best if I started with a full run-down of the process I have gone through. 90 hours of my life spent porting this device, and I am excited for the next 90.&lt;/p&gt;
+&lt;p&gt;Thanks for reading! Tschüss!&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Hello World</title>
       <link>http://lowendlibre.github.io/posts/hello-world/</link>
