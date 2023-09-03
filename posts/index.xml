@@ -5,8 +5,104 @@
     <link>http://lowendlibre.github.io/posts/</link>
     <description>Recent content in Posts on lowendlibre Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 09 Aug 2023 20:27:55 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sun, 03 Sep 2023 15:58:15 -0400</lastBuildDate><atom:link href="http://lowendlibre.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MediaTek Mainlining Madness</title>
+      <link>http://lowendlibre.github.io/posts/mediatek-mainlining-madness/</link>
+      <pubDate>Sun, 03 Sep 2023 15:58:15 -0400</pubDate>
+      
+      <guid>http://lowendlibre.github.io/posts/mediatek-mainlining-madness/</guid>
+      <description>MediaTek Mainlining Madness Long time no see! We have a lot to cover, so let&amp;rsquo;s get right into it.
+We have two devices booting the mt6765 kernel. The Nokia 3.1 Plus (Roo) and the TCL A3 (bangkok_tf). Out of these two devices, the Nokia 3.1 Plus has better support due to being easier to get logs from.
+What is working? You won&amp;rsquo;t be replacing your daily driver just yet, but basic computer features are available.</description>
+      <content>&lt;h1 id=&#34;mediatek-mainlining-madness&#34;&gt;MediaTek Mainlining Madness&lt;/h1&gt;
+&lt;p&gt;Long time no see! We have a lot to cover, so let&amp;rsquo;s get right into it.&lt;/p&gt;
+&lt;p&gt;We have two devices booting the mt6765 kernel. The Nokia 3.1 Plus (Roo) and the TCL A3 (bangkok_tf). Out of these two devices, the Nokia 3.1 Plus has better support due to  being easier to get logs from.&lt;/p&gt;
+&lt;h3 id=&#34;what-is-working&#34;&gt;What is working?&lt;/h3&gt;
+&lt;p&gt;You won&amp;rsquo;t be replacing your daily driver just yet, but basic computer features are available.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;postmarketOS rootfs
+&lt;ul&gt;
+&lt;li&gt;This is the big one. The kernel is able to load the rootfs from an sdcard. It might be able to load from the emmc, but that is untested.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;USB
+&lt;ul&gt;
+&lt;li&gt;Both connection and USB Networking works, allowing for internet connection.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;4 CPU Cores
+&lt;ul&gt;
+&lt;li&gt;These are only half of the cores available on the mt6765, but they are enough for basic initialization.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Haptics
+&lt;ul&gt;
+&lt;li&gt;I honestly have no idea why these work, but they do. Nice?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;SD-Card
+&lt;ul&gt;
+&lt;li&gt;The mounting of the sdcard and booting of operating systems of of it works.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;PMIC Buttons (Hardware Buttons)
+&lt;ul&gt;
+&lt;li&gt;You can actually click buttons and they do stuff. Wow.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Real Time Clock
+&lt;ul&gt;
+&lt;li&gt;Basic ARM stuff that nobody cares about.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Thermal
+&lt;ul&gt;
+&lt;li&gt;The CPU reports thermals of the device to the kernel. It doesn&amp;rsquo;t report the correct values though, so this will require some tweaking.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;i2c
+&lt;ul&gt;
+&lt;li&gt;This was a pain to get working, but it was required for display.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Backlight
+&lt;ul&gt;
+&lt;li&gt;The screen actually has brightness. Wow.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Flashlight
+&lt;ul&gt;
+&lt;li&gt;Another one of those: I honestly have no idea why this works.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Charger
+&lt;ul&gt;
+&lt;li&gt;The battery is able to get voltage higher than what it is discharging and can handle charging correctly. I am unsure if it is able to charge while suspended as we don&amp;rsquo;t have that implemented yet, so just assume it cannot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EMMC
+&lt;ul&gt;
+&lt;li&gt;This was a huge surprise to find working. Not even the mt6763 (which the vollaphone uses) has this working. Apparently the SOC handles EMMC in the same way it handles sdcards, so it was just a process of changing around a few values and we got it working.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Framebuffer
+&lt;ul&gt;
+&lt;li&gt;Simplefb works but causes a huge kernel panic, so it is almost useless for getting logs. It should be possible to fix it through some switching of the dts memory maps, but that is to be seen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;upstreaming&#34;&gt;Upstreaming&lt;/h3&gt;
+&lt;p&gt;While I would love to be able to bring these patches to the true mainline Linux kernel, the way that the kernel handles the SOC is just incompatible with the main tree. Maybe in a few years time it would be possible if the code was cleaned up as much as possible, but even then, the dts files for the phones would not be accepted due to bootloader hacks.&lt;/p&gt;
+&lt;h3 id=&#34;postmarketos-upstreaming&#34;&gt;postmarketOS Upstreaming&lt;/h3&gt;
+&lt;p&gt;On the other hand, JustSoup is in the process of writing a kernel package to send upstream to postmarketOS so new ports can make use of this mainline kernel fork. If you are interested in porting a new mt6765/mt6762 device to postmarketOS, keep an eye out for said kernel package, message JustSoup on Mastodon or Matrix, or just ask in the postmarketOS mainlining channel on Matrix.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;While this post was short, I hope it was enough to bring some light to our progress here at lowendlibre. If you have any questions, feel free to ask on the Mastodon post.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>From Zero to Kernel</title>
       <link>http://lowendlibre.github.io/posts/from-zero-to-kernel/</link>
